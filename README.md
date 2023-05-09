@@ -83,7 +83,7 @@ cc-mock是一款的智能mock工具。支持springboot项目下的自动生成�
   }
   ```
 
-- springboot集成cc-mock的案例。
+- [springboot集成cc-mock的案例。](https://gitee.com/boren07/cc-mock/tree/master/cc-mock-samples/spring-boot-sample)
 
 
 
