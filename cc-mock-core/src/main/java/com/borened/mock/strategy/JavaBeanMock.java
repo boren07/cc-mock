@@ -6,6 +6,7 @@ import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
@@ -19,7 +20,7 @@ import java.util.*;
 public class JavaBeanMock implements MockStrategy {
     @Override
     public List<Class<?>> supportTypes() {
-        return null;
+        return Arrays.asList(Object.class);
     }
 
     @Override
@@ -33,6 +34,9 @@ public class JavaBeanMock implements MockStrategy {
         try {
             Field[] fields = tClass.getDeclaredFields();
             for (Field field : fields) {
+                if(Modifier.isFinal(field.getModifiers())){
+                    continue;
+                }
                 field.setAccessible(true);
                 Class<?> fieldType = field.getType();
                 //Collection字段处理
@@ -46,7 +50,7 @@ public class JavaBeanMock implements MockStrategy {
                 }else {//其他基础类型，使用内置mock策略自动适配
                     field.set(t, CcMock.mock(fieldType));
                 }
-                log.info("字段{}创建成功！", field.getName());
+                log.debug("字段{}mock成功！", field.getName());
             }
         } catch (Exception e) {
             log.error("Mock Java Bean make a mistake!", e);

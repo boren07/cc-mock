@@ -13,8 +13,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "ccmock")
 public class MockApiProperties {
 
-    private MockConfig config = new MockConfig();
-
+    /**
+     * mock通用规则配置
+     */
+    private MockConfig generalConfig = new MockConfig();
+    /*
+     是否开启mock模式，默认开启
+     */
     private boolean enabled =true;
 
 }

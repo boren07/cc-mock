@@ -19,6 +19,7 @@
     <modules>
         <module>cc-mock-core</module>
         <module>cc-mock-api-starter</module>
+        <module>cc-mock-samples</module>
     </modules>
 
     <properties>
@@ -46,6 +47,11 @@
             <dependency>
                 <groupId>com.borened.mock</groupId>
                 <artifactId>cc-mock-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.borened.mock</groupId>
+                <artifactId>cc-mock-api-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

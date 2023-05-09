@@ -1,6 +1,7 @@
 package com.borened.mock.config;
 
 import com.borened.mock.interceptor.MockInterceptor;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -10,9 +11,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 public class MockMvcConfig implements WebMvcConfigurer {
 
+    private final MockInterceptor mockInterceptor;
+
+    public MockMvcConfig(MockInterceptor mockInterceptor) {
+        Assert.notNull(mockInterceptor,"mockInterceptor not be null");
+        this.mockInterceptor = mockInterceptor;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MockInterceptor());
+        registry.addInterceptor(mockInterceptor);
     }
 
 }

@@ -20,13 +20,14 @@ public class TestBeanMock {
         StopWatch stopWatch =new StopWatch();
         for (int i = 0; i < 100; i++) {
             stopWatch.start();
-            System.out.println(CcMock.mock(Foo.class));
+            Foo<String> foo = new Foo<>();
+            System.out.println(CcMock.mock(foo.getClass()));
             stopWatch.stop();
         }
         System.out.println(stopWatch.prettyPrint());
     }
     @Data
-    public static class Foo {
+    public static class Foo<T> {
 
         private String username;
         private String password;
@@ -37,6 +38,7 @@ public class TestBeanMock {
         private LocalDateTime createTime;
         private BigDecimal account;
 
+        private T info;
         private List<String> list;
         private Map<String, BigDecimal> map;
 

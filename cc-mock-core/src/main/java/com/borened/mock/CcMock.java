@@ -30,6 +30,7 @@ public class CcMock {
         MOCK_STRATEGIES.add(new DateMock());
         MOCK_STRATEGIES.add(new BigDecimalMock());
         MOCK_STRATEGIES.add(new StringMock());
+        MOCK_STRATEGIES.add(new JavaBeanMock());
     }
     static {
         DATA_STRATEGY_MAP = new HashMap<>();
