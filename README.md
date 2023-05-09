@@ -86,6 +86,11 @@ cc-mock是一款的智能mock工具。支持springboot项目下的自动生成�
 - [springboot集成cc-mock的案例。](https://gitee.com/boren07/cc-mock/tree/master/cc-mock-samples/spring-boot-sample)
 
 
+#### 优点
+
+- 无侵入：cc-mock在现有springboot框架的基础上做mock增强，对现有代码和架构不会产生任何影响。
+- 使用简单无损耗：几乎只需要一个配置即可开启和关闭MOCK功能，有大量的自动mock策略。关闭mock后无任何性能损耗。
+- 易扩展：支持自定义mock策略，自定义Mock响应结构。
 
 
 
@@ -95,12 +100,6 @@ cc-mock是一款的智能mock工具。支持springboot项目下的自动生成�
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
-
-#### 优点
-
-- 无侵入：cc-mock在现有springboot框架的基础上做mock增强，对现有代码和架构不会产生任何影响。
-- 使用简单无损耗：几乎只需要一个配置即可开启和关闭MOCK功能，有大量的自动mock策略。关闭mock后无任何性能损耗。
-- 易扩展：支持自定义mock策略，自定义Mock响应结构。
 
 #### 版本更新说明
 
