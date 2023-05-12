@@ -40,9 +40,4 @@ public class IntegerMock implements MockStrategy {
         return (T) res;
     }
 
-    public static void main(String[] args) {
-        System.out.println(Byte.class.isAssignableFrom(byte.class));
-        System.out.println(byte.class.isAssignableFrom(Byte.class));
-        System.out.println(Byte.class.isAssignableFrom(Byte.class));
-    }
 }

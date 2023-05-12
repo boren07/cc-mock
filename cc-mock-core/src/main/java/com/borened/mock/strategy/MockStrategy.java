@@ -3,6 +3,8 @@ package com.borened.mock.strategy;
 
 import com.borened.mock.config.MockConfig;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -27,4 +29,14 @@ public interface MockStrategy{
      */
     <T> T mock(MockConfig mockConfig,Class<T> tClass);
 
+    /**
+     * 根据类型mock
+     *
+     * @param mockConfig
+     * @param type       类型
+     * @return mock实例
+     */
+    default Object mock(MockConfig mockConfig, Type type){
+        return null;
+    }
 }

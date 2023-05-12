@@ -2,9 +2,8 @@ package com.borened.mock.interceptor;
 
 
 import com.alibaba.fastjson2.JSON;
-import com.borened.mock.MockApiResultWrapper;
 import com.borened.mock.CcMock;
-import lombok.extern.slf4j.Slf4j;
+import com.borened.mock.MockApiResultWrapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.Assert;
 import org.springframework.web.method.HandlerMethod;
@@ -22,7 +21,7 @@ import java.lang.reflect.Type;
  * mock响应增强处理
  * @author cch
  */
-@Slf4j
+//@Slf4j
 public class MockInterceptor implements HandlerInterceptor {
 
     private final MockApiResultWrapper<?> mockApiResultWrapper;
@@ -40,18 +39,12 @@ public class MockInterceptor implements HandlerInterceptor {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         MethodParameter methodParameter = handlerMethod.getReturnType();
         Type genericType = methodParameter.getGenericParameterType();
-        Object mockResponse = null;
-        //泛型响应处理
+        Object mockResponse;
         if (genericType instanceof ParameterizedType) {
-            Type[] args = ((ParameterizedType) genericType).getActualTypeArguments();
-            if (args.length > 0 && args[0] instanceof Class) {
-                Class<?> argType = (Class<?>) args[0];
-                Object mock = CcMock.mock(argType);
-                mockResponse = mockApiResultWrapper.wrapper(mock);
-            }
-        }else {
-            Class<?> clazz = (Class<?>) genericType;
-            mockResponse = CcMock.mock(clazz);
+            Type[] actualTypeArguments = ((ParameterizedType) genericType).getActualTypeArguments();
+            mockResponse  =  mockApiResultWrapper.wrapper(CcMock.mock(actualTypeArguments[0]));
+        } else {
+            mockResponse = mockApiResultWrapper.wrapper(null);
         }
         writeResp(response, JSON.toJSONString(mockResponse), "application/json;charset=utf-8");
         return false;

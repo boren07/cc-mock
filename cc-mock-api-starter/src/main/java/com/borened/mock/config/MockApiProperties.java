@@ -20,6 +20,6 @@ public class MockApiProperties {
     /*
      是否开启mock模式，默认开启
      */
-    private boolean enabled =true;
+    private boolean enabled = false;
 
 }

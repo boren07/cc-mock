@@ -3,6 +3,7 @@ package com.borened.mock;
 import com.borened.mock.config.MockConfig;
 import com.borened.mock.strategy.*;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 /**
@@ -15,12 +16,12 @@ public class CcMock {
      * 所有策略类集合
      */
     private static final Map<Class<?>, MockStrategy> DATA_STRATEGY_MAP;
-    public static final MockConfig MOCK_CONFIG;
+    private static final MockConfig MOCK_CONFIG;
     //基本类型的mock
-    public static final List<MockStrategy> MOCK_STRATEGIES;
+    private static final List<MockStrategy> MOCK_STRATEGIES;
 
     //java bean的mock
-    public static final MockStrategy JAVA_BAEN_STRATEGY;
+    private static final MockStrategy JAVA_BAEN_STRATEGY;
 
     static {
         MOCK_CONFIG= new MockConfig();
@@ -47,12 +48,20 @@ public class CcMock {
 
     /**
      * 策略上下文对象委派具体的策略执行算法
-     * @return
+     * @return 模拟数据
      */
     public static Object mock(Class<?> clazz) {
         return getExecuteStrategy(clazz).mock(MOCK_CONFIG, clazz);
     }
 
+    /**
+     * 根据类型MOCK
+     * @param type 类型
+     * @return 模拟数据
+     */
+    public static Object mock(Type type) {
+        return JAVA_BAEN_STRATEGY.mock(MOCK_CONFIG, type);
+    }
     /**
      * 获取适用的策略处理类
      */
@@ -61,7 +70,7 @@ public class CcMock {
         MockStrategy strategy = Optional.ofNullable(DATA_STRATEGY_MAP.get(clazz))
                 .orElse(clazz.isPrimitive() || clazz.getPackage().getName().contains("java.") ?  null : JAVA_BAEN_STRATEGY);
         if (strategy == null) {
-            throw new RuntimeException(String.format("not found available type strategy because strategy type is %s", clazz.getName()));
+            throw new RuntimeException(String.format("not found available type strategy because strategy class is %s", clazz.getName()));
         }
         return strategy;
     }

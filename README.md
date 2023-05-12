@@ -6,7 +6,9 @@ cc-mock是一款的智能mock工具。支持springboot项目下的自动生成�
 
 #### 软件架构
 
+项目环境: JDK1.8+
 软件架构说明
+
 
 #### 安装教程
 
@@ -15,9 +17,10 @@ cc-mock是一款的智能mock工具。支持springboot项目下的自动生成�
     <dependency>
         <groupId>com.borened.mock</groupId>
         <artifactId>cc-mock-api-starter</artifactId>
+        <version>latest</version>
     </dependency>
    ```
-2. 配置mock启用（可选），默认情况下引入依赖后自动配置即启用了mock，开发完毕后需关闭mock。
+2. 配置mock启用，在配置文件中进行开启，开发完毕后需关闭mock。
     ```yml
    ccmock:
       enabled: true
@@ -89,7 +92,7 @@ cc-mock是一款的智能mock工具。支持springboot项目下的自动生成�
 #### 优点
 
 - 无侵入：cc-mock在现有springboot框架的基础上做mock增强，对现有代码和架构不会产生任何影响。
-- 使用简单无损耗：几乎只需要一个配置即可开启和关闭MOCK功能，有大量的自动mock策略。关闭mock后无任何性能损耗。
+- 简单轻量：几乎只需要一个配置即可开启和关闭MOCK功能，有大量的自动mock策略。关闭mock后无任何性能损耗。
 - 易扩展：支持自定义mock策略，自定义Mock响应结构。
 
 

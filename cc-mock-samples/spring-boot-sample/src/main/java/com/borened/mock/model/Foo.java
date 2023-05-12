@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public class Foo {
+public class Foo<V,K,S> {
 
     private String username;
     private String password;
@@ -19,15 +19,15 @@ public class Foo {
     private LocalDateTime createTime;
     private BigDecimal account;
 
-    private List<String> list;
-    private Map<String, BigDecimal> map;
-    private List<Attr> attrs;
+    private List<K> list;
+    private Map<K, V> map;
+    private S attrs;
 
     @Data
-    public static class Attr{
+    public static class Attr<S>{
         private String name;
         private int gender;
-        private short age;
+        private S attrType;
     }
 
 }

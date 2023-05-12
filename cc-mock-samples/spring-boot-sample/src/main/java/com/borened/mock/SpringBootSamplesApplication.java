@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @SpringBootApplication
 @RestController
 public class SpringBootSamplesApplication {
@@ -36,7 +38,17 @@ public class SpringBootSamplesApplication {
      * 测试返回嵌套泛型参数结果
      */
     @GetMapping("/test3")
-    public MyResult<Foo.Attr> test3(){
+    public MyResult<Foo<Foo.Attr<String>,String,List<Foo.Attr<String>>>> test3(){
+        return new MyResult<>();
+    }
+
+    @GetMapping("/test4")
+    public MyResult<List<Foo.Attr>> test4(){
+        return new MyResult<>();
+    }
+
+    @GetMapping("/test5")
+    public MyResult<List<Foo.Attr>> test5(){
         return new MyResult<>();
     }
 }

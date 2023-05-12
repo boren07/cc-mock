@@ -31,7 +31,7 @@ public class DateMock implements MockStrategy {
         IntRange hourRange =mockConfig.getDate().getHourRange();
         IntRange minRange =mockConfig.getDate().getMinRange();
         IntRange secRange =mockConfig.getDate().getSecRange();
-        if (tClass.isAssignableFrom(Date.class)) {
+        if (Date.class.isAssignableFrom(tClass)) {
             Calendar calendar = Calendar.getInstance();
             calendar.set(RandomUtil.randomNumber(yearRange), RandomUtil.randomNumber(monthRange), RandomUtil.randomNumber(dayRange),
                     RandomUtil.randomNumber(hourRange), RandomUtil.randomNumber(minRange),RandomUtil.randomNumber(secRange));
