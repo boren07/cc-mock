@@ -7,6 +7,8 @@ cc-mock是一款的智能mock工具。支持springboot项目下的自动生成�
 #### 软件架构
 
 项目环境: JDK1.8+
+
+
 软件架构说明
 
 
@@ -27,21 +29,30 @@ cc-mock是一款的智能mock工具。支持springboot项目下的自动生成�
    ```
 
 #### 使用说明
+##### MOCK类型支持
+
+| java类型         | 支持类型                                                     | mock配置说明    |
+| ---------------- | ------------------------------------------------------------ |-------------|
+| 基础类型及包装类 | byte,short,int,long,Byte,Short,Integer,Long,double, float, Double, Float，boolean,Boolean | 参考number配置  |
+| 字符             | String,char, Character                                       | 参考stringr配置 |
+| 日期类型         | Date, LocalDate LocalTime, LocalDateTime                     | 参考date配置    |
+| 小数             | BigDecimal                                                   | 参考number配置  |
+| java对象         | 任意Java Bean 对象，支持嵌套泛型。                           |             |
 
 ##### Springboot开发
 
-- 开发接口，注意：接口返回值应尽可能使用泛型来指定实际数据类型，或使用@MockResponse注解指定数据类型。如果是使用Object设置返回数据，则无法通过mock自动模拟响应内容。
+- 开发接口。注意：接口返回值应尽可能使用泛型来指定实际数据类型，或使用@MockResponse注解指定数据类型。如果是使用Object设置返回数据，则无法通过mock自动模拟响应内容。
 
   ```java
-/**
-   * 泛型参数响应（推荐用法）
-   */
-@GetMapping("/test2")
-public MyResult<Foo> test2(){
-    //这里可以是自定义逻辑,可以从数据库或其他地方读取
-    Foo data = new Foo();
-    return new MyResult<>(data);
-}
+    /**
+     * 泛型参数响应（推荐用法）
+     */
+    @GetMapping("/test2")
+    public MyResult<Foo> test2(){
+     //这里可以是自定义逻辑,可以从数据库或其他地方读取
+     Foo data = new Foo();
+     return new MyResult<>(data);
+    }
   ```
 
   
@@ -89,17 +100,7 @@ public MyResult<Foo> test2(){
   ```
 
 - [springboot集成cc-mock的案例。](https://gitee.com/boren07/cc-mock/tree/master/cc-mock-samples/spring-boot-sample)
-##### MOCK数据开发
-
-| java类型         | 支持类型                                                     | mock说明        |
-| ---------------- | ------------------------------------------------------------ | --------------- |
-| 基础类型及包装类 | byte,short,int,long,Byte,Short,Integer,Long,double, float, Double, Float，boolean,Boolean | 参考number配置  |
-| 字符             | String,char, Character                                       | 参考stringr配置 |
-| 日期类型         | Date, LocalDate LocalTime, LocalDateTime                     | 参考date配置    |
-| 小数             | BigDecimal                                                   | 参考number配置  |
-| java对象         | 任意Java Bean 对象，支持嵌套泛型。                           |                 |
-
-- MOCK自定义对象
+##### 自定义MOCK示例
 
   ```java
   @Data
@@ -123,7 +124,9 @@ public MyResult<Foo> test2(){
       System.out.println(CcMock.mock(mockConfig,User.class));
   }
   //输出结果
-  //User(username=cxy7x, password=s7n3v, nickName=j3sgy, roles=[s0osm, 6x5mu, 1m6bw, 26wto, jo52h, ro8zy, n6e84, dx5dm, ueke7, 9jhgm])
+  /**
+   * User(username=cxy7x, password=s7n3v, nickName=j3sgy, roles=[s0osm, 6x5mu, 1m6bw, 26wto, jo52h, ro8zy, n6e84, dx5dm, ueke7, 9jhgm])
+   */
   
   ```
 
