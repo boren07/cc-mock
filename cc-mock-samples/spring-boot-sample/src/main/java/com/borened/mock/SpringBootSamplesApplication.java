@@ -1,6 +1,9 @@
 package com.borened.mock;
 
+import com.borened.mock.annotation.MockResponse;
 import com.borened.mock.model.Foo;
+import com.borened.mock.model.User;
+import jdk.internal.org.objectweb.asm.TypeReference;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,12 +46,13 @@ public class SpringBootSamplesApplication {
     }
 
     @GetMapping("/test4")
-    public MyResult<List<Foo.Attr>> test4(){
+    @MockResponse(dataType = User.class)
+    public MyResult test4(){
         return new MyResult<>();
     }
 
     @GetMapping("/test5")
-    public MyResult<List<Foo.Attr>> test5(){
+    public MyResult test5(){
         return new MyResult<>();
     }
 }

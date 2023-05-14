@@ -16,7 +16,7 @@ public class CcMock {
      * 所有策略类集合
      */
     private static final Map<Class<?>, MockStrategy> DATA_STRATEGY_MAP;
-    private static final MockConfig MOCK_CONFIG;
+    private static final MockConfig DEFAULT_MOCK_CONFIG;
     //基本类型的mock
     private static final List<MockStrategy> MOCK_STRATEGIES;
 
@@ -24,7 +24,7 @@ public class CcMock {
     private static final MockStrategy JAVA_BAEN_STRATEGY;
 
     static {
-        MOCK_CONFIG= new MockConfig();
+        DEFAULT_MOCK_CONFIG = new MockConfig();
         MOCK_STRATEGIES= new ArrayList<>();
         JAVA_BAEN_STRATEGY = new JavaBeanMock();
         MOCK_STRATEGIES.add(new IntegerMock());
@@ -51,16 +51,39 @@ public class CcMock {
      * @return 模拟数据
      */
     public static Object mock(Class<?> clazz) {
-        return getExecuteStrategy(clazz).mock(MOCK_CONFIG, clazz);
+        return getExecuteStrategy(clazz).mock(DEFAULT_MOCK_CONFIG, clazz);
+    }
+    /**
+     * 策略上下文对象委派具体的策略执行算法
+     * @return 模拟数据
+     */
+    public static Object mock(MockConfig mockConfig,Class<?> clazz) {
+        if (mockConfig==null) {
+            mockConfig = DEFAULT_MOCK_CONFIG;
+        }
+        return getExecuteStrategy(clazz).mock(mockConfig, clazz);
     }
 
     /**
      * 根据类型MOCK
-     * @param type 类型
+     * @param type 真实类型
      * @return 模拟数据
      */
     public static Object mock(Type type) {
-        return JAVA_BAEN_STRATEGY.mock(MOCK_CONFIG, type);
+        return JAVA_BAEN_STRATEGY.mock(DEFAULT_MOCK_CONFIG, type);
+    }
+
+    /**
+     * 根据类型MOCK
+     * @param mockConfig mock配置
+     * @param type 真实类型
+     * @return 模拟数据
+     */
+    public static Object mock(MockConfig mockConfig,Type type) {
+        if (mockConfig==null) {
+            mockConfig = DEFAULT_MOCK_CONFIG;
+        }
+        return JAVA_BAEN_STRATEGY.mock(mockConfig, type);
     }
     /**
      * 获取适用的策略处理类

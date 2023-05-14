@@ -16,11 +16,15 @@ public class IntegerMock implements MockStrategy {
     @Override
     public List<Class<?>> supportTypes() {
         return Arrays.asList(byte.class,short.class,int.class, long.class,
-                Byte.class,Short.class,Integer.class, Long.class);
+                Byte.class,Short.class,Integer.class, Long.class,boolean.class,Boolean.class);
     }
 
     @Override
     public <T> T mock(MockConfig mockConfig, Class<T> tClass) {
+        if (tClass==boolean.class || tClass == Boolean.class) {
+            int bool = RandomUtil.randomNumber(new IntRange(0, 2));
+            return (T) Boolean.valueOf(bool==1);
+        }
         IntRange range = mockConfig.getNumber().getRange();
         Long number = RandomUtil.randomLong(range);
         Object res = new Object();
@@ -33,11 +37,14 @@ public class IntegerMock implements MockStrategy {
         else if (tClass==int.class || tClass == Integer.class) {
             res = number.intValue();
         }
+
         else {
             res = number;
         }
         //直接强转
         return (T) res;
     }
+
+
 
 }

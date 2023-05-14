@@ -10,7 +10,7 @@ import java.util.Date;
  * @author cch
  * @since 2023-04-25
  */
-public class TestBaseMock {
+public class TestBaseMockResponse {
 
     @Test
     void get(){

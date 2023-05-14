@@ -1,7 +1,5 @@
 package com.borened.mock.annotation;
 
-import com.borened.mock.config.MockConfig;
-
 import java.lang.annotation.*;
 
 /**
@@ -11,9 +9,9 @@ import java.lang.annotation.*;
  * @since 2023-05-10
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ElementType.FIELD})
 @Inherited
 @Documented
-public @interface Mock {
+public @interface MockIgnore {
 
 }

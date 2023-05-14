@@ -13,12 +13,24 @@ import lombok.Data;
 @Data
 public class MockConfig {
 
+    /**
+     * 数字
+     */
     private Number number = new Number();
 
+    /**
+     * 日期配置
+     */
     private Date date = new Date();
-
+    /**
+     * 字符串
+     */
     private String string = new String();
 
+    /**
+     * 集合大小
+     */
+    private Integer collectionSize = 10;
 
     @Data
     public static class Number {

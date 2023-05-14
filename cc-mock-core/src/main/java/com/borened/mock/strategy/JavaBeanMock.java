@@ -1,6 +1,7 @@
 package com.borened.mock.strategy;
 
 import com.borened.mock.CcMock;
+import com.borened.mock.annotation.MockIgnore;
 import com.borened.mock.config.MockConfig;
 import com.borened.mock.exception.CcMockException;
 import com.borened.mock.util.ReflectUtils;
@@ -35,7 +36,7 @@ public class JavaBeanMock implements MockStrategy {
         }
         Field[] declaredFields = tClass.getDeclaredFields();
         for (Field field : declaredFields) {
-            if (Modifier.isFinal(field.getModifiers())) {
+            if (Modifier.isFinal(field.getModifiers()) || field.isAnnotationPresent(MockIgnore.class)) {
                 continue;
             }
             field.setAccessible(true);
@@ -76,7 +77,7 @@ public class JavaBeanMock implements MockStrategy {
                 }
                 Field[] fields = rawClass.getDeclaredFields();
                 for (Field field : fields) {
-                    if (Modifier.isFinal(field.getModifiers())) {
+                    if (Modifier.isFinal(field.getModifiers()) || field.isAnnotationPresent(MockIgnore.class) ) {
                         continue;
                     }
                     field.setAccessible(true);
@@ -93,7 +94,7 @@ public class JavaBeanMock implements MockStrategy {
             }
         } else if (type instanceof Class) {
             Class<?> clazz = (Class<?>) type;
-            return CcMock.mock(clazz);
+            return CcMock.mock(mockConfig,clazz);
         }
         throw new CcMockException("Unsupported mock type:%s", type.getTypeName());
     }
@@ -123,7 +124,7 @@ public class JavaBeanMock implements MockStrategy {
         }
 
         //这个10条可以根据配置调整
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < mockConfig.getCollectionSize(); i++) {
             Object mockKey = mock(mockConfig, keyType);
             Object mockValue = mock(mockConfig, valueType);
             map.put(mockKey, mockValue);
@@ -159,7 +160,7 @@ public class JavaBeanMock implements MockStrategy {
                 throw new CcMockException("Reflect error! Unsupported collection type:%s,error detail:%s", rawClass.getName(), e.getMessage());
             }
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < mockConfig.getCollectionSize(); i++) {
             Object item;
             //mock集合的元素
             item = mock(mockConfig, itemType);

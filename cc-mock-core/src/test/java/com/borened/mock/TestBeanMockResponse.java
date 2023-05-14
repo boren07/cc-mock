@@ -15,7 +15,7 @@ import java.util.*;
  * @author cch
  * @since 2023-04-25
  */
-public class TestBeanMock {
+public class TestBeanMockResponse {
 
     @Test
     void get() throws Exception {

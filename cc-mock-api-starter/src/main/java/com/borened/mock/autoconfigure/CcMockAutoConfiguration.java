@@ -31,8 +31,8 @@ public class CcMockAutoConfiguration {
     }
 
     @Bean
-    public MockInterceptor mockInterceptor(MockApiResultWrapper<?> mockApiResultWrapper){
-        return new MockInterceptor(mockApiResultWrapper);
+    public MockInterceptor mockInterceptor(MockApiResultWrapper<?> mockApiResultWrapper,MockApiProperties mockApiProperties){
+        return new MockInterceptor(mockApiResultWrapper,mockApiProperties);
     }
 
     @Bean

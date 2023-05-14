@@ -15,14 +15,16 @@ import java.util.Random;
 public class StringMock implements MockStrategy {
     @Override
     public List<Class<?>> supportTypes() {
-        return Arrays.asList(String.class);
+        return Arrays.asList(String.class,char.class, Character.class);
     }
 
     @Override
     public <T> T mock(MockConfig mockConfig, Class<T> tClass) {
         StringType stringType = mockConfig.getString().getStringType();
         int length = mockConfig.getString().getLength();
-
+        if (tClass == char.class || tClass == Character.class) {
+            length = 1;
+        }
         String res = "";
         switch (stringType){
             case CHAR:
@@ -40,7 +42,11 @@ public class StringMock implements MockStrategy {
             default:
                 break;
         }
-        return (T) res;
+        Object result =  res;
+        if (tClass == char.class || tClass == Character.class) {
+            result = res.charAt(0);
+        }
+        return (T) result;
     }
 
 
